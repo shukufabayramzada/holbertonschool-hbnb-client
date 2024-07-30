@@ -1,0 +1,105 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  background-color: #ffa500;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 50px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-size: 16px;
+}
+
+.login-button {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+main {
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+#country-filter {
+  margin-bottom: 20px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.places {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.place-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 10px;
+  width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.place-card h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.place-card p {
+  margin: 10px 0;
+}
+
+.details-button {
+  background-color: #ffa500;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  display: block;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+footer {
+  background-color: #ffa500;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  margin: 0;
+  color: white;
+}
