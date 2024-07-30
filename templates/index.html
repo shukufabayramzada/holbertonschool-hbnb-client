@@ -5,26 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of Places</title>
-    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../style/styles.css">
+    <link rel="stylesheet" href="../style/index.css">
 </head>
 
 <body>
     <header>
-        <img src="../assets/logo.png" alt="Logo" class="logo">
+        <a href="../templates//index.html"> <img src="../assets/logo.png" alt="Logo" class="logo"></a>
         <nav>
-            <a href="login.html" id="login-link" class="login-button">Login</a>
+            <a href="../templates/login.html" id="login-link" class="login-button">Login</a>
         </nav>
     </header>
     <main>
-        <h1>Available Places</h1>
-        <section id="filter">
-            <label for="country-filter">Filter by Country:</label>
-            <select id="country-filter">
-                <option value="all">All</option>
-                <option value="usa">USA</option>
-                <option value="canada">Canada</option>
-                <!-- Add more options as needed -->
-            </select>
+
+        <section id="filter_part">
+            <h1>Available Places</h1>
+            <div class="filter">
+                <label for="country-filter">Filter by Country:</label>
+                <select id="country-filter">
+                    <option value="all">All</option>
+                    <option value="usa">USA</option>
+                    <option value="canada">Canada</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+
         </section>
         <section id="places-list" class="places">
             <!-- List of places will be populated dynamically -->
@@ -32,7 +37,9 @@
                 <h3>Beautiful Beach House</h3>
                 <p>Price per night: $150</p>
                 <p>Location: Los Angeles, United States</p>
-                <button class="details-button">View Details</button>
+                <button class="details-button">
+                    <a href="../templates/place.html">View Details</a>
+                </button>
             </div>
             <div class="place-card">
                 <h3>Cozy Cabin</h3>
