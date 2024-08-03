@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import jwt
 import datetime
 from flask_cors import CORS
+import json, os
 
 app = Flask(__name__)
 CORS(app)
@@ -17,15 +18,47 @@ users = {
         "name": "John Wor"
     }
 }
+
+
+def load_places():
+    with open(os.path.join('data', 'places.json')) as f:
+        return json.load(f)
+    
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    token = request.cookies.get('token')
+    user_logged_in = False
+    if token:
+        try:
+            jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
+            user_logged_in = True
+        except jwt.ExpiredSignatureError:
+            pass
+        except jwt.InvalidTokenError:
+            pass
+    return render_template('index.html', user_logged_in=user_logged_in)
+
+@app.route('/places', methods=['GET'])
+def get_places():
+    auth_header = request.headers.get('Authorization')
+    if auth_header:
+        token = auth_header.split(" ")[1]
+        try:
+            jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
+            places = load_places()
+            return jsonify(places)
+        except jwt.ExpiredSignatureError:
+            return jsonify({'message': 'Token expired'}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({'message': 'Invalid token'}), 401
+    return jsonify({'message': 'Token is missing'}), 401
+
+
 
 @app.route('/place')
 def place():
     return render_template('place.html')
-
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
