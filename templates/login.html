@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../style/login.css">
-    <link rel="stylesheet" href="../style/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
 <body>
     <header>
-        <a href="../templates/index.html"> <img src="../assets/logo.png" alt="Logo" class="logo"></a>
+        <a href="{{ url_for('index') }}"> <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="Logo"
+                class="logo"></a>
         <nav>
-            <a href="../templates/login.html" id="login-link" class="login-button">Login</a>
+            <a href="{{ url_for('login')}}" id="login-link" class="login-button">Login</a>
         </nav>
     </header>
     <main class="login-container">
@@ -34,7 +35,7 @@
     <footer>
         <p>© 2024 HBnB Evolution. All rights reserved.</p>
     </footer>
-    <script src="../dynamic/script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
 </html>

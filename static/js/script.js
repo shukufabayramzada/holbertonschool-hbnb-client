@@ -13,22 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (response.ok) {
           const data = await response.json();
           setCookie('token', data.access_token, 1); // Store the token for 1 day
-          window.location.href = '../templates/index.html';
+          window.location.href = '/';
         } else {
-          const errorData = await response.json();
-          throw new Error('Login failed: ' + errorData.message);
+          throw new Error('Login failed: ' + response.statusText);
         }
       } catch (error) {
         errorMessage.style.display = 'block';
         errorMessage.textContent = error.message;
-        console.error('Error during login:', error); // Debug log
       }
     });
   }
 });
 
 async function loginUser(email, password) {
-  return fetch('http://127.0.0.1:5000/login', {
+  return fetch('/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
