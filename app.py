@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify, render_template
 import jwt
 import datetime
 from flask_cors import CORS
-import json, os
+import json
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -19,11 +20,16 @@ users = {
     }
 }
 
-
 def load_places():
     with open(os.path.join('data', 'places.json')) as f:
         return json.load(f)
-    
+
+def get_place_by_id(place_id):
+    places = load_places()
+    for place in places:
+        if place.get('placeId') == place_id:  # Changed to 'placeId'
+            return place
+    return None
 
 @app.route('/')
 def index():
@@ -54,11 +60,23 @@ def get_places():
             return jsonify({'message': 'Invalid token'}), 401
     return jsonify({'message': 'Token is missing'}), 401
 
-
-
-@app.route('/place')
-def place():
-    return render_template('place.html')
+@app.route('/places/<int:place_id>', methods=['GET'])
+def get_place(place_id):
+    auth_header = request.headers.get('Authorization')
+    if auth_header:
+        token = auth_header.split(" ")[1]
+        try:
+            jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
+            place = get_place_by_id(place_id)
+            if place:
+                return jsonify(place)
+            else:
+                return jsonify({'message': 'Place not found'}), 404
+        except jwt.ExpiredSignatureError:
+            return jsonify({'message': 'Token expired'}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({'message': 'Invalid token'}), 401
+    return jsonify({'message': 'Token is missing'}), 401
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -80,7 +98,6 @@ def login():
 
     # For GET requests, render the login form
     return render_template('login.html')
-
 
 @app.errorhandler(405)
 def method_not_allowed(e):
